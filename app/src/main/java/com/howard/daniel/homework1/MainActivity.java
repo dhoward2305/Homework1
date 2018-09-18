@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private static final int DIALOG_ID = 0;
 
 
     @Override

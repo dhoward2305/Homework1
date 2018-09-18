@@ -35,7 +35,6 @@ public class canvas extends View {
         this.context = context;
 
         mPath = new Path();
-//        paths.add(mPath);
         mPaint = new Paint();
         bitmapPaint = new Paint(Paint.DITHER_FLAG);
         mPaint.setDither(true);
@@ -93,7 +92,6 @@ public class canvas extends View {
 
     public void clearPath() {
         mPath.reset();
-//        mPath.close();
         invalidate();
     }
 
@@ -105,21 +103,8 @@ public class canvas extends View {
         invalidate();
 }
 
-//    public Bitmap getBitmap() {
-//        this.setDrawingCacheEnabled(true);
-//        this.buildDrawingCache();
-//        Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
-//        this.setDrawingCacheEnabled(false);
-//
-//        return bmp;
-//    }
-
     private void upTouch() {
         mPath.lineTo(mX, mY);
-//        mCanvas.drawPath(mPath, mPaint);
-//
-//        mPath = new Path();
-//        paths.add(mPath);
     }
 
     @Override

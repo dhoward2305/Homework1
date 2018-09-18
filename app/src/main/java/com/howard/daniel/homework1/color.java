@@ -45,6 +45,7 @@ public class color extends Fragment {
 
             }
         });
+        
         return rootView;
     }
 }
