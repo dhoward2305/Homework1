@@ -25,8 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import ir.mtajik.android.advancedPermissionsHandler.PermissionHandlerActivity;
-import ir.mtajik.android.advancedPermissionsHandler.PermissionHandlerActivity.PermissionCallBack;
 
 
 public class draw extends Fragment
@@ -60,9 +58,6 @@ public class draw extends Fragment
                         changeStrokeColor();
                         clearPath(view);
                         break;
-//                    case R.id.saveButton:
-//                        Toast.makeText(getContext(), "File saved!", Toast.LENGTH_SHORT).show();
-//                        break;
                     default:
                         break;
                 }
