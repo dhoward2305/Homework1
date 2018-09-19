@@ -106,7 +106,6 @@ public class draw extends Fragment
         });
     }
 
-
     private void requestStorePerm() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)) {
