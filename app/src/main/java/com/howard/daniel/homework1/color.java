@@ -21,7 +21,6 @@ public class color extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.color, container, false);
 
-
         Button button1 = (Button) rootView.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +44,7 @@ public class color extends Fragment {
 
             }
         });
-        
+
         return rootView;
     }
 }

@@ -129,5 +129,4 @@ public class canvas extends View {
         }
         return true;
     }
-
 }
