@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +31,7 @@ import java.io.IOException;
 public class draw extends Fragment
 {
     private canvas canvasView;
+    //Storage permission code
     private int trm = 1;
 
     @Override
@@ -72,9 +74,9 @@ public class draw extends Fragment
 
                 if (ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    saveBitmap(canvasView.mBitmap);
+                    saveMe(canvasView.mBitmap);
                 } else {
-                    requestStoragePermission();
+                    requestStorePerm();
                 }
             }
         });
@@ -105,21 +107,18 @@ public class draw extends Fragment
     }
 
 
-    private void requestStoragePermission() {
+    private void requestStorePerm() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Permission Needed")
-                    .setMessage("Do you accept?")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(getActivity()).setTitle("Give User Permission").setMessage("Allow?")
+                    .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog, int a) {
 
                         }
-                    })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("Deny", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int a) {
                         dialog.dismiss();
                     }
                 }).create().show();
@@ -129,43 +128,43 @@ public class draw extends Fragment
 
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if (requestCode == trm) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(getContext(),
-//                        "Granted " ,
-//                        Toast.LENGTH_LONG).show();
-//            }else{
-//                Toast.makeText(getContext(),
-//                        "Not Granted " ,
-//                        Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == trm) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(),
+                        "Granted " ,
+                        Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getContext(),
+                        "Not Granted " ,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
-    private void saveBitmap(Bitmap bm){
+    private void saveMe(Bitmap image){
         File file = Environment.getExternalStorageDirectory();
-        File newFile = new File(file, "test.PNG");
+        File mFile = new File(file, "test.PNG");
 
         try {
-            FileOutputStream fos = new FileOutputStream(newFile);
-            boolean compress = bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
+            FileOutputStream outputStream = new FileOutputStream(mFile);
+            boolean shrink = image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
             Toast.makeText(getContext(),
-                    "Saved Image: " + fos.toString(),
+                    "Saved Image!: " + outputStream.toString(),
                     Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getContext(),
-                    "Error: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+                    "Mistakes were made " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getContext(),
-                    "Error1: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+                    "Mistakes were made AGAIN :( " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
